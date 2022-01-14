@@ -4,8 +4,7 @@
 Créer un contrôleur de Power Point via les mouvements du présentateur devant une caméra. Le but serait de pouvoir passer des diaporamas, pointer des éléments d'une diaporama, tout cela à l'aide de mouvements du bras du présentateur.
 
 ## Prérequis.
-  _ Demander l'instalation des librairies nécessaires (Open CV, Pyautogui) sur deux ordinateurs portables de la salle 124.
-  _ 
+  - Demander l'instalation des librairies nécessaires (Open CV, Pyautogui) sur deux ordinateurs portables de la salle 124.
 
 ## Partie 1 : Détection de mouvement.
 Détection de mouvements avec la librairie [Open CV](https://pypi.org/project/opencv-python/) pour python.
