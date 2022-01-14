@@ -24,6 +24,6 @@ Action sur un clavier virtuel avec la librairie python [Pyautogui](https://githu
 
 ## __Avancement.__
 
-| Date | __GitHub__ | __Programmation__ | __Oral__ |
+| Date | GitHub | Programmation | Oral |
 | :---: | :--- | :--- | :--- |
 | 2022-01-14 | Création du repository / Création du cahier des charges | Etude de la librairie Open CV python | |
