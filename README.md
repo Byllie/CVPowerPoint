@@ -21,3 +21,8 @@ Action sur un clavier virtuel avec la librairie python [Pyautogui](https://githu
 ## __Pour aller plus loins.__
  - Utilisation de médias (Réglage du volume, play, pause, suivant, précédent).
  - Souris virtuelle à l'aide de la caméra (déplacement, clicks, défilements).
+
+
+| bouh | coucou |
+| --- | --- |
+| hello | Salut |
