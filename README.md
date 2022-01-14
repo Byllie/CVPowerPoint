@@ -9,3 +9,7 @@ Détection de mouvements avec la librairie [Open CV](https://pypi.org/project/op
 ## Partie 2 : Controle sur le système.
 Action sur un clavier virtuel avec la librairie python [Pyautogui](https://github.com/asweigart/pyautogui).
   - Créer des fonctions qui vont renvoyer les différentes actions à réaliser à l'aide de raccourcis clavier ou de mouvements de souris (par exemple dans le cas d'un pointeur).
+  - Renvoyer un affichage vidéo (ex : affichage filtré de la caméra).
+ 
+ 
+ Bouh->salut
