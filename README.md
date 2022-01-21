@@ -27,3 +27,5 @@ Action sur un clavier virtuel avec la librairie python [Pyautogui](https://githu
 | Date | GitHub | Programmation | Oral |
 | :---: | :--- | :--- | :--- |
 | 2022-01-14 | Création du repository / Création du cahier des charges | Etude de la librairie Open CV python | |
+| 2022-01-21 | Création du fichier control_ptt | Recherche de technique pour détecter les mouvement et création d'une fonction avec Pyautogui | |
+
