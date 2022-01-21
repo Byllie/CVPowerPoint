@@ -4,34 +4,25 @@ from time import *
 from numpy import *
 
 
-video = cv2.VideoCapture(0)
-ret, frame = video.read()
-
-f2 =  cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-while True :
-    ret, frame = video.read()
-    f1 = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    f3 = list(f1)
-
-    for i in range(len(f1)) :
-        for y in range(len(f1[0])) :
-            if f1[i][y] - f2[i][y] > 50 or f1[i][y] - f2[i][y] < -50 :
-                pass
-            else :
-                f3[i][y] = 0
-
-    cv2.imshow("", array(f3))
-
-    f2 = array(f1)
+def capture():
+    back = cv2.createBackgroundSubtractorMOG2()
+    video = cv2.VideoCapture(0)
+    element = ones((4, 4), uint8)
+    back.setVarThreshold(100)
+    while True :
+        ret, frame = video.read()
+        masque = back.apply(frame,None,0)
+        masque = cv2.erode(masque, element, iterations=1)
+        cv2.imshow("Cam", masque)
 
 
 
 
+        if cv2.waitKey(1) & 0xFF == ord('q') :
+            break
 
-    if cv2.waitKey(1) & 0xFF == ord('q') :
-        break
-
-video.release()
-cv2.destroyAllWindows()
-
+    video.release()
+    cv2.destroyAllWindows()
+import  time
+time.sleep(5)
+capture()
