@@ -2,14 +2,17 @@ import cv2
 import  time
 from numpy import *
 import tkinter
-
-
+import ppt
 def capture(Sensibilité,Pixelisation):
+
     time.sleep(5)
     back = cv2.createBackgroundSubtractorMOG2()
     video = cv2.VideoCapture(0)
     element = ones((Pixelisation, Pixelisation), uint8)
     back.setVarThreshold(Sensibilité)
+    #variable pour vecteur
+    temps_depuis_derniere_coord=0
+    l_coord=[]
     while True :
         ret, frame = video.read()
         masque = back.apply(frame,None,0)
@@ -27,6 +30,22 @@ def capture(Sensibilité,Pixelisation):
         cv2.imshow("Cam2",frame)
         cv2.imshow("Background", back.getBackgroundImage())
         cv2.imshow("Cam", masque)
+        #Calcul des vecteurs
+        if time.time()-temps_depuis_derniere_coord>0.25:
+            if len(l_coord)==4:
+                l_coord.pop(0)
+                l_coord.append(gauche)
+                v3=(l_coord[3][0]-l_coord[0][0],l_coord[3][1]-l_coord[0][1])
+                print(v3)
+                if v3[0]>50 and -20<v3[1] and 20>v3[1]:
+                    print("bob")
+                    ppt.mouvement("Bras-Gauche")
+                temps_depuis_derniere_coord=time.time()
+            else:
+                l_coord.append(gauche)
+                temps_depuis_derniere_coord=time.time()
+
+
         if cv2.waitKey(1) & 0xFF == ord('q') :
             break
     video.release()
