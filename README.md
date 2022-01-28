@@ -28,5 +28,5 @@ Action sur un clavier virtuel avec la librairie python [Pyautogui](https://githu
 | :---: | :--- | :--- | :--- |
 | 2022-01-14 | Création du repository / Création du cahier des charges | Etude de la librairie Open CV python | |
 | 2022-01-21 | Création du fichier control_ptt.py et detection.py | Recherche de technique pour détecter les mouvements et création d'une fonction avec Pyautogui | |
-| 2022-01-28 | | Suppression du background, récupération d'un rectangle comprenant les mouvements, calculs de vecteurs afin de détecter un mouvement utilisable. Teste de lien avec notre fonction pyautogui de changement de slide | |
+| 2022-01-28 | Merge de la branche de dévelopement et la branch principal | Suppression du background, récupération d'un rectangle comprenant les mouvements, calculs de vecteurs afin de détecter un mouvement utilisable. Teste de lien avec notre fonction pyautogui de changement de slide | |
 
