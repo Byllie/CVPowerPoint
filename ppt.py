@@ -6,7 +6,7 @@ def mouvement(mouv):
     global temps
     global mode_de_fonctionnemnt
     if mode_de_fonctionnemnt==0:
-        if time.time()-temps>5:
+        if time.time()-temps>1:
             if mouv=="Bras-Droit":
                 pyautogui.press('left')
             elif mouv=="Bras-Gauche":
