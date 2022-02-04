@@ -1,8 +1,17 @@
 import cv2
 import  time
+import math
 from numpy import *
 import tkinter
 import ppt
+
+class Vecteur:
+    def __init__(self,a,b):
+        self.a=a[0]+a[1]*1j
+        self.b=b[0]+b[1]*1j
+        self.affixe=self.b-self.a
+        self.module=math.sqrt(real(self.affixe)**2+imag(self.affixe)**2)
+
 def capture(Sensibilité,Pixelisation):
 
     time.sleep(5)
@@ -54,13 +63,8 @@ def capture(Sensibilité,Pixelisation):
     cv2.destroyAllWindows()
 
 
-def calc_vecteur (c) :
-    v1=(c[1][0]-c[0][0],c[1][1]-c[0][1])
-    v2=(c[2][0]-c[1][0],c[2][1]-c[1][1])
-    v3=(c[3][0]-c[2][0],c[3][1]-c[2][1])
 
-    if v1[0]>50 and -20<v3[1] and 20>v3[1] :
-        print(v1, v2, v3)
+
 
 #Tkinter
 Fenetre_tkinter=tkinter.Tk()
