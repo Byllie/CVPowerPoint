@@ -36,11 +36,13 @@ def capture(Sensibilité,Pixelisation):
                 l_coord.pop(0)
                 l_coord.append(gauche)
                 v3=(l_coord[3][0]-l_coord[0][0],l_coord[3][1]-l_coord[0][1])
-                print(v3)
+                #print(v3)
                 if v3[0]>50 and -20<v3[1] and 20>v3[1]:
                     print("bob")
                     ppt.mouvement("Bras-Gauche")
                 temps_depuis_derniere_coord=time.time()
+
+                calc_vecteur(l_coord)
             else:
                 l_coord.append(gauche)
                 temps_depuis_derniere_coord=time.time()
@@ -51,6 +53,14 @@ def capture(Sensibilité,Pixelisation):
     video.release()
     cv2.destroyAllWindows()
 
+
+def calc_vecteur (c) :
+    v1=(c[1][0]-c[0][0],c[1][1]-c[0][1])
+    v2=(c[2][0]-c[1][0],c[2][1]-c[1][1])
+    v3=(c[3][0]-c[2][0],c[3][1]-c[2][1])
+
+    if v1[0]>50 and -20<v3[1] and 20>v3[1] :
+        print(v1, v2, v3)
 
 #Tkinter
 Fenetre_tkinter=tkinter.Tk()
