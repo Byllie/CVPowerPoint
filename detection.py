@@ -40,6 +40,7 @@ def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
                 l_coord.pop(0)
                 l_coord.append(gauche)
                 v3 = vecteur.Vecteur(l_coord[0], l_coord[3])
+                print(v3.module)
                 if v3.module > sensibilite_vecteur :
                     print("Bouh!")
                     ppt.mouvement("Bras-Gauche")
