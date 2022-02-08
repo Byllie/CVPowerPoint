@@ -7,7 +7,7 @@ import ppt
 import vecteur
 
 
-def capture(Sensibilité,Pixelisation):
+def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
 
     time.sleep(5)
     back = cv2.createBackgroundSubtractorMOG2()
@@ -39,14 +39,12 @@ def capture(Sensibilité,Pixelisation):
             if len(l_coord)==4:
                 l_coord.pop(0)
                 l_coord.append(gauche)
-                v3=(l_coord[3][0]-l_coord[0][0],l_coord[3][1]-l_coord[0][1])
-                #print(v3)
-                if v3[0]>50 and -20<v3[1] and 20>v3[1]:
-                    print("bob")
+                v3 = vecteur.Vecteur(l_coord[0], l_coord[3])
+                if v3.module > sensibilite_vecteur :
+                    print("Bouh!")
                     ppt.mouvement("Bras-Gauche")
                 temps_depuis_derniere_coord=time.time()
 
-                calc_vecteur(l_coord)
             else:
                 l_coord.append(gauche)
                 temps_depuis_derniere_coord=time.time()
@@ -68,8 +66,11 @@ slider1 = tkinter.Scale(Fenetre_tkinter, from_=0, to=25,orient='horizontal')
 slider1.set(4)
 slider2 = tkinter.Scale(Fenetre_tkinter, from_=0, to=500,orient='horizontal')
 slider2.set(100)
+slider3 = tkinter.Scale(Fenetre_tkinter, from_=10, to=500,orient='horizontal')
+slider3.set(100)
 slider1.pack()
 slider2.pack()
-bouton = tkinter.Button(Fenetre_tkinter,text="Lancer la camera",command=lambda:capture(slider2.get(),slider1.get()))
+slider3.pack()
+bouton = tkinter.Button(Fenetre_tkinter,text="Lancer la camera",command=lambda:capture(slider2.get(),slider1.get(), slider3.get()))
 bouton.pack()
 Fenetre_tkinter.mainloop()
