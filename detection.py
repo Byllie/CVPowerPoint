@@ -4,13 +4,8 @@ import math
 from numpy import *
 import tkinter
 import ppt
+import vecteur
 
-class Vecteur:
-    def __init__(self,a,b):
-        self.a=a[0]+a[1]*1j
-        self.b=b[0]+b[1]*1j
-        self.affixe=self.b-self.a
-        self.module=math.sqrt(real(self.affixe)**2+imag(self.affixe)**2)
 
 def capture(Sensibilité,Pixelisation):
 
