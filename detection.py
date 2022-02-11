@@ -8,6 +8,7 @@ import vecteur
 
 
 def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
+    i = False
 
     time.sleep(5)
     back = cv2.createBackgroundSubtractorMOG2()
@@ -31,6 +32,12 @@ def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
         cv2.circle(frame, droite, 8, (255, 50, 0), -1)
         cv2.circle(frame, haut, 8, (255, 50, 0), -1)
         cv2.circle(frame, bas, 8, (255, 50, 0), -1)
+
+        if i is True :
+            cv2.line(frame, l_coord[0], l_coord[1], (255, 0, 0), 2)
+            cv2.line(frame, l_coord[1], l_coord[2], (0, 255, 0), 2)
+            cv2.line(frame, l_coord[2], l_coord[3], (0, 0, 255), 2)
+
         cv2.imshow("Cam2",frame)
         cv2.imshow("Background", back.getBackgroundImage())
         cv2.imshow("Cam", masque)
@@ -46,15 +53,23 @@ def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
                 print(v03.module,v03.argument)
                 if v03.module > sensibilite_vecteur :
                     print("module 3 ok")
-                    if v03.argument>3*math.pi/4 and v03.argument<5*math.pi/4:
+                    if v03.argument>7*math.pi/4 or v03.argument<math.pi/4:
                         print("argument 3 ok")
-                        ppt.mouvement("Bras-Gauche")
+
+                        if v01.module > v03.module*0.1 and v12.module > v03.module*0.1 and v23.module > v03.module*0.1 :
+                            print("Module petits vecteurs OK")
+                            if (v01.argument < math.pi / 2 or v01.argument > 3*math.pi / 2) and (v12.argument < math.pi / 2 or v12.argument > 3*math.pi / 2) and (v23.argument < math.pi / 2 or v23.argument > 3*math.pi / 2) :
+                                print("Argument petits vecteurs OK")
+                                i = True
+                                ppt.mouvement("Bras-Gauche")
+                        else :
+                            i = False
                 temps_depuis_derniere_coord=time.time()
+
 
             else:
                 l_coord.append(gauche)
                 temps_depuis_derniere_coord=time.time()
-
 
         if cv2.waitKey(1) & 0xFF == ord('q') :
             break
