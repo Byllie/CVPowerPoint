@@ -39,11 +39,16 @@ def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
             if len(l_coord)==4:
                 l_coord.pop(0)
                 l_coord.append(gauche)
-                v3 = vecteur.Vecteur(l_coord[0], l_coord[3])
-                print(v3.module)
-                if v3.module > sensibilite_vecteur :
-                    print("Bouh!")
-                    ppt.mouvement("Bras-Gauche")
+                v03 = vecteur.Vecteur(l_coord[0], l_coord[3])
+                v01 = vecteur.Vecteur(l_coord[0], l_coord[1])
+                v12 = vecteur.Vecteur(l_coord[1], l_coord[2])
+                v23 = vecteur.Vecteur(l_coord[2], l_coord[3])
+                print(v03.module,v03.argument)
+                if v03.module > sensibilite_vecteur :
+                    print("module 3 ok")
+                    if v03.argument>3*math.pi/4 and v03.argument<5*math.pi/4:
+                        print("argument 3 ok")
+                        ppt.mouvement("Bras-Gauche")
                 temps_depuis_derniere_coord=time.time()
 
             else:
