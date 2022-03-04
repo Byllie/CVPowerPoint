@@ -6,5 +6,5 @@ class Vecteur:
         self.affixe=self.b-self.a
         self.module=math.sqrt(self.affixe.real**2+self.affixe.imag**2)
         self.argument=math.acos(self.affixe.real/self.module) if (math.acos(self.affixe.real/self.module) *math.asin(self.affixe.imag/self.module)>=0) else math.acos(self.affixe.real/-self.module)+math.pi
-        #vraiment impresionnant je suis vraiment le roi du sinus
+        #vraiment impresionnant je suis vraiment le roi du sinus (Gwendal)
 
