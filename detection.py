@@ -62,8 +62,7 @@ def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
                                 print("Argument petits vecteurs OK")
                                 i = True
                                 ppt.mouvement("Bras-Gauche")
-                        else :
-                            i = False
+                i = False
                 temps_depuis_derniere_coord=time.time()
 
 
