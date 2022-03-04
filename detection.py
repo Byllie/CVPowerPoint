@@ -51,6 +51,7 @@ def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
                 v12 = vecteur.Vecteur(l_coord[1], l_coord[2])
                 v23 = vecteur.Vecteur(l_coord[2], l_coord[3])
                 print(v03.module,v03.argument)
+                i = False
                 if v03.module > sensibilite_vecteur :
                     print("module 3 ok")
                     if v03.argument>7*math.pi/4 or v03.argument<math.pi/4:
@@ -62,7 +63,6 @@ def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
                                 print("Argument petits vecteurs OK")
                                 i = True
                                 ppt.mouvement("Bras-Gauche")
-                i = False
                 temps_depuis_derniere_coord=time.time()
 
 
