@@ -35,8 +35,8 @@ def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
 
         if i is True :
             cv2.line(frame, l_coord[0], l_coord[1], (255, 0, 0), 2)
-            cv2.line(frame, l_coord[1], l_coord[2], (0, 255, 0), 2)
-            cv2.line(frame, l_coord[2], l_coord[3], (0, 0, 255), 2)
+            cv2.line(frame, l_coord[1], l_coord[2], (255, 0, 0), 2)
+            cv2.line(frame, l_coord[2], l_coord[3], (255, 0, 0), 2)
 
         cv2.imshow("Cam2",frame)
         cv2.imshow("Background", back.getBackgroundImage())
