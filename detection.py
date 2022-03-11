@@ -18,7 +18,8 @@ def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
     #variable pour vecteur
     temps_depuis_derniere_coord=0
     l_coord=[]
-    while True :
+    mouvement=[vecteur.Deplacement((math.pi/4,7*math.pi/4),(math.pi/2,3*math.pi/2),1,ppt.droite),vecteur.Deplacement((5*math.pi/4,3*math.pi/4),(3*math.pi/2,math.pi/2),0,ppt.gauche)]
+    while True:
         ret, frame = video.read()
         masque = back.apply(frame,None,0)
         masque = cv2.erode(masque, element, iterations=1)
@@ -53,16 +54,12 @@ def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
                 print(v03.module,v03.argument)
                 i = False
                 if v03.module > sensibilite_vecteur :
-                    print("module 3 ok")
-                    if v03.argument>7*math.pi/4 or v03.argument<math.pi/4:
-                        print("argument 3 ok")
-
                         if v01.module > v03.module*0.1 and v12.module > v03.module*0.1 and v23.module > v03.module*0.1 :
-                            print("Module petits vecteurs OK")
-                            if (v01.argument < math.pi / 2 or v01.argument > 3*math.pi / 2) and (v12.argument < math.pi / 2 or v12.argument > 3*math.pi / 2) and (v23.argument < math.pi / 2 or v23.argument > 3*math.pi / 2) :
-                                print("Argument petits vecteurs OK")
-                                i = True
-                                ppt.mouvement("Bras-Gauche")
+                            for mv in mouvement:
+                                if {1:v03.argument<mv.a1[0] or v03.argument>mv.a1[1], 0:v03.argument<mv.a1[0] and v03.argument>mv.a1[1]}[mv.andor]:
+                                    if {1:(v01.argument < mv.a2[0] or v01.argument > mv.a2[1]) and (v12.argument < mv.a2[0] or v12.argument > mv.a2[1]) and (v23.argument < mv.a2[0] or v23.argument > mv.a2[1]), 0:(v01.argument < mv.a2[0] and v01.argument > mv.a2[1]) and (v12.argument < mv.a2[0] and v12.argument > mv.a2[1]) and (v23.argument < mv.a2[0] and v23.argument > mv.a2[1])}[mv.andor]:
+                                        i=True
+                                        mv.f()
                 temps_depuis_derniere_coord=time.time()
 
 
