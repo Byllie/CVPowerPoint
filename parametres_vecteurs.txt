@@ -1,0 +1,12 @@
+Déplacement droite :
+  1. Module v03 > sensibilité/p
+  2. 7pi/4 < arg(v03) < pi/4
+  3. module v01, v12, v23 > 10% module v03
+  4. 3pi/2 < arg (v01, v12, v23) < pi/2
+
+
+Déplacement gauche :
+  1. Module v03 > sensibilité/p
+  2. 3pi/4 < arg(v03) < 5pi/4
+  3. module v01, v12, v23 > 10% module v03
+  4. pi/2 < arg (v01, v12, v23) < 3pi/2
