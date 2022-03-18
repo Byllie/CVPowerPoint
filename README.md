@@ -33,3 +33,4 @@ Action sur un clavier virtuel avec la librairie python [Pyautogui](https://githu
 | 2022-02-11 | | Réalisation de tests sur les différents vecteurs afin de déterminer la validité de ces derniers. Affichage des vecteurs pris valides. | |
 | 2022-03-04 | | Correction des bug quant à l'affichage des vecteurs | |
 | 2022-03-11 | | Création d'une fonction calculant les mouvements réalisés. Implémentation du mouvement gauche à droite | |
+| 2022-03-18 | | Création de logos et réarengement de l'interface utilisateur Tkinter | |
