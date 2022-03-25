@@ -9,10 +9,11 @@ import vecteur
 
 def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
     i = False
-
     time.sleep(5)
     back = cv2.createBackgroundSubtractorMOG2()
     video = cv2.VideoCapture(0)
+    taille = (int(video.get(cv2.CAP_PROP_FRAME_WIDTH)), int(video.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+    print(str(taille[0]) + "x" + str(taille[1]))
     element = ones((Pixelisation, Pixelisation), uint8)
     back.setVarThreshold(Sensibilité)
     #variable pour vecteur
@@ -53,7 +54,7 @@ def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
                 v23 = vecteur.Vecteur(l_coord[2], l_coord[3])
                 print(v03.module,v03.argument)
                 i = False
-                if v03.module > sensibilite_vecteur :
+                if v03.module > math.sqrt(taille[0]**2 + taille[1]**2) * sensibilite_vecteur / 100 :
                         if v01.module > v03.module*0.1 and v12.module > v03.module*0.1 and v23.module > v03.module*0.1 :
                             for mv in mouvement:
                                 if {1:v03.argument<mv.a1[0] or v03.argument>mv.a1[1], 0:v03.argument<mv.a1[0] and v03.argument>mv.a1[1]}[mv.andor]:
@@ -89,8 +90,8 @@ slider1 = tkinter.Scale(Fenetre_tkinter, from_=0, to=25,orient='horizontal',leng
 slider1.set(4)
 slider2 = tkinter.Scale(Fenetre_tkinter, from_=0, to=500,orient='horizontal',length=350,width=10)
 slider2.set(100)
-slider3 = tkinter.Scale(Fenetre_tkinter, from_=10, to=500,orient='horizontal',length=350,width=10)
-slider3.set(100)
+slider3 = tkinter.Scale(Fenetre_tkinter, from_=0, to=50,orient='horizontal',length=350,width=10)
+slider3.set(10)
 slider1.grid(row = 1, column = 1)
 slider2.grid(row = 2, column = 1)
 slider3.grid(row = 3, column = 1)
