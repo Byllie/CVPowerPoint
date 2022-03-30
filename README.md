@@ -34,3 +34,4 @@ Action sur un clavier virtuel avec la librairie python [Pyautogui](https://githu
 | 2022-03-04 | | Correction des bug quant à l'affichage des vecteurs | |
 | 2022-03-11 | | Création d'une fonction calculant les mouvements réalisés. Implémentation du mouvement gauche à droite | |
 | 2022-03-18 | | Création de logos et réarengement de l'interface utilisateur Tkinter | |
+| 2022-03-25 | | Passage de la limite de détection de pixel à % d'écran | |
