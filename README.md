@@ -1,5 +1,5 @@
 # Open CV Power Point
-
+![Logo Magic_Hands](logo-magic-hand.png)
 ## __Description du projet.__
 Créer un contrôleur de Power Point via les mouvements du présentateur devant une caméra. Le but serait de pouvoir passer des slides, pointer des éléments d'une slide, tout cela à l'aide de mouvements du bras du présentateur.
 
