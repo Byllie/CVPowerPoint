@@ -4,12 +4,9 @@ import numpy as np
 
 def test () :
     video = cv2.VideoCapture(0)
+    # Couleurs à détecter (bleu).
     d = np.array([95, 100, 50])
     f = np.array([105, 255, 255])
-    d = np.array([50, 95, 100])
-    f = np.array([255, 105, 255])
-    d = np.array([100, 50, 95])
-    f = np.array([255, 255, 105])
     while True :
         ret, frame = video.read()
 
