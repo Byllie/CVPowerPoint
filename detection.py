@@ -5,9 +5,10 @@ from numpy import *
 import tkinter
 import ppt
 import vecteur
+from tkinter import colorchooser
 
 
-def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
+def capture(Sensibilité,Pixelisation, sensibilite_vecteur,mode):
     i = False
     time.sleep(5)
     back = cv2.createBackgroundSubtractorMOG2()
@@ -75,6 +76,33 @@ def capture(Sensibilité,Pixelisation, sensibilite_vecteur):
 
 
 
+#Fonction pour Tkinter. Les objet sont définis plus bas
+def SourisTk():
+    slider1.grid_remove()
+    slider2.grid_remove()
+    slider3.grid_remove()
+    l1.grid_remove()
+    l2.grid_remove()
+    l3.grid_remove()
+    boutonsouris.grid(row=1,column=0,sticky="n")
+    labelsouris.grid(row=1,column=1)
+def PowerPointTk():
+    labelsouris.grid_remove()
+    boutonsouris.grid_remove()
+    l1.grid(row=1,column=0,sticky='se')
+    l3.grid(row=3,column=0,sticky='se')
+    l2.grid(row=2,column=0,sticky='se')
+    slider1.grid(row = 1, column = 1,columnspan=2)
+    slider2.grid(row = 2, column = 1,columnspan=2)
+    slider3.grid(row = 3, column = 1,columnspan=2)
+
+def ChoisirCouleur():
+    couleur=tkinter.colorchooser.askcolor(color=None,title ="Choisir une Couleur")
+    textecouleur.set(couleur[1])
+    labelsouris.config(bg=couleur[1])
+
+
+
 
 
 #Tkinter
@@ -82,23 +110,36 @@ Fenetre_tkinter=tkinter.Tk()
 Fenetre_tkinter.iconbitmap('main-rouge.ico')
 img = tkinter.PhotoImage(file="logo-magic-hand.png")
 label = tkinter.Label(Fenetre_tkinter, image = img)
-# label.pack()
-Fenetre_tkinter.geometry("520x380")
+Fenetre_tkinter.geometry("520x400")
 Fenetre_tkinter.title("MagicHand")
 tkinter.Frame(Fenetre_tkinter).grid()
+modedefonctionement=tkinter.IntVar()
+modedefonctionement.set=0
+textecouleur=tkinter.StringVar()
 slider1 = tkinter.Scale(Fenetre_tkinter, from_=0, to=25,orient='horizontal',length=350,width=10)
 slider1.set(4)
 slider2 = tkinter.Scale(Fenetre_tkinter, from_=0, to=500,orient='horizontal',length=350,width=10)
 slider2.set(100)
 slider3 = tkinter.Scale(Fenetre_tkinter, from_=0, to=50,orient='horizontal',length=350,width=10)
 slider3.set(10)
-slider1.grid(row = 1, column = 1)
-slider2.grid(row = 2, column = 1)
-slider3.grid(row = 3, column = 1)
-label.grid(row=0,columnspan=2)
-tkinter.Label(Fenetre_tkinter,text="Pixelisation : ").grid(row=1,column=0,sticky='se')
-tkinter.Label(Fenetre_tkinter,text="Sensibilité : ").grid(row=2,column=0,sticky='se')
-tkinter.Label(Fenetre_tkinter,text="% pour mouvement :").grid(row=3,column=0,sticky='se')
-bouton = tkinter.Button(Fenetre_tkinter,text="Lancer la camera",command=lambda:capture(slider2.get(),slider1.get(), slider3.get()),width  =50)
-bouton.grid(row=4,column=0,columnspan=2)
+radio1=tkinter.Radiobutton(Fenetre_tkinter,text="PowerPoint",variable=modedefonctionement,value=0,command=PowerPointTk)
+radio2=tkinter.Radiobutton(Fenetre_tkinter,text="Musique",variable=modedefonctionement,value=1,command=PowerPointTk)
+radio3=tkinter.Radiobutton(Fenetre_tkinter,text="Souris",variable=modedefonctionement,value=2,command=SourisTk)
+l1=tkinter.Label(Fenetre_tkinter,text="Pixelisation : ")
+l2=tkinter.Label(Fenetre_tkinter,text="Sensibilité : ")
+l3=tkinter.Label(Fenetre_tkinter,text="% pour mouvement :")
+bouton = tkinter.Button(Fenetre_tkinter,text="Lancer la camera",command=lambda:capture(slider2.get(),slider1.get(), slider3.get(),modedefonctionement),width  =50)
+boutonsouris=tkinter.Button(Fenetre_tkinter,text="Choisir une couleur",command=ChoisirCouleur)
+labelsouris=tkinter.Label(Fenetre_tkinter,textvariable=textecouleur)
+bouton.grid(row=5,column=0,columnspan=3)
+label.grid(row=0,column=0,columnspan=3)
+radio1.grid(row=4,column=0)
+radio2.grid(row=4,column=1)
+radio3.grid(row=4,column=2)
+PowerPointTk()
 Fenetre_tkinter.mainloop()
+
+
+
+
+
