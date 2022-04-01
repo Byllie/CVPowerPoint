@@ -36,4 +36,4 @@ Action sur un clavier virtuel avec la librairie python [Pyautogui](https://githu
 | 2022-03-18 | | Création de logos et réarengement de l'interface utilisateur Tkinter | |
 | 2022-03-25 | | Passage de la limite de détection de pixel à % d'écran | |
 | 2022-03-30 | Ajout du logo dans le markdown  | | |
-| 2022-04-01 | Création d'une branch dédiée aux tests de détection de couleur | Création d'un fichier de test de détection de couleur. Ajout de sélectionneurs "radios" dans l'interface Tkinter | |
+| 2022-04-01 | Création d'une branch dédiée aux tests de détection de couleur | Création d'un fichier de test de détection de couleur. Ajout de boutons "radios" dans l'interface Tkinter | |
