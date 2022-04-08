@@ -99,7 +99,6 @@ def PowerPointTk():
 def ChoisirCouleur():
     couleur=tkinter.colorchooser.askcolor(color=None,title ="Choisir une Couleur")
     textecouleur.set(couleur[1])
-    labelsouris.config(bg=couleur[1])
 
 
 
@@ -116,6 +115,7 @@ tkinter.Frame(Fenetre_tkinter).grid()
 modedefonctionement=tkinter.IntVar()
 modedefonctionement.set=0
 textecouleur=tkinter.StringVar()
+textecouleur.set("#FFFFFF")
 slider1 = tkinter.Scale(Fenetre_tkinter, from_=0, to=25,orient='horizontal',length=350,width=10)
 slider1.set(4)
 slider2 = tkinter.Scale(Fenetre_tkinter, from_=0, to=500,orient='horizontal',length=350,width=10)
@@ -130,7 +130,8 @@ l2=tkinter.Label(Fenetre_tkinter,text="Sensibilité : ")
 l3=tkinter.Label(Fenetre_tkinter,text="% pour mouvement :")
 bouton = tkinter.Button(Fenetre_tkinter,text="Lancer la camera",command=lambda:capture(slider2.get(),slider1.get(), slider3.get(),modedefonctionement),width  =50)
 boutonsouris=tkinter.Button(Fenetre_tkinter,text="Choisir une couleur",command=ChoisirCouleur)
-labelsouris=tkinter.Label(Fenetre_tkinter,textvariable=textecouleur)
+labelsouris=tkinter.Entry(Fenetre_tkinter,textvariable=textecouleur)
+textecouleur.trace_add("write",lambda *args: labelsouris.config(bg=textecouleur.get()))#labelsouris.config(bg=textecouleur.get()))
 bouton.grid(row=5,column=0,columnspan=3)
 label.grid(row=0,column=0,columnspan=3)
 radio1.grid(row=4,column=0)
@@ -138,8 +139,6 @@ radio2.grid(row=4,column=1)
 radio3.grid(row=4,column=2)
 PowerPointTk()
 Fenetre_tkinter.mainloop()
-
-
 
 
 
