@@ -38,3 +38,4 @@ Action sur un clavier virtuel avec la librairie python [Pyautogui](https://githu
 | 2022-03-30 | Ajout du logo dans le markdown  | | |
 | 2022-04-01 | Création d'une branch dédiée aux tests de détection de couleur | Création d'un fichier de test de détection de couleur. Ajout de boutons "radios" dans l'interface Tkinter | |
 | 2022-04-08 | | Amélioration de l'interface tkinter. Amélioration de la détection de couleur avec une sélection de couleur | |
+| 2022-04-12 | | Ajout des commandes pour le mode musique | |
