@@ -23,7 +23,7 @@ def capture(Sensibilité,Pixelisation, sensibilite_vecteur,mode):
     if modedefonctionement==0:
         mouvement=[vecteur.Deplacement((math.pi/4,7*math.pi/4),(math.pi/2,3*math.pi/2),1,ppt.droite),vecteur.Deplacement((5*math.pi/4,3*math.pi/4),(3*math.pi/2,math.pi/2),0,ppt.gauche)]
     else:
-        mouvement=[vecteur.Deplacement((math.pi/4,7*math.pi/4),(math.pi/2,3*math.pi/2),1,ppt.suivant),vecteur.Deplacement((5*math.pi/4,3*math.pi/4),(3*math.pi/2,math.pi/2),0,ppt.precedent),vecteur.Deplacement((3*math.pi/4,math.pi/4),(math.pi,0),0,ppt.volumeplus),vecteur.Deplacement((5*math.pi/4,7*math.pi/4),(2*math.pi,math.pi),0,ppt.volumemoins)]
+        mouvement=[vecteur.Deplacement((math.pi/4,7*math.pi/4),(math.pi/2,3*math.pi/2),1,ppt.suivant),vecteur.Deplacement((5*math.pi/4,3*math.pi/4),(3*math.pi/2,math.pi/2),0,ppt.precedent),vecteur.Deplacement((3*math.pi/4,math.pi/4),(math.pi,0),0,ppt.volumeplus),vecteur.Deplacement((7*math.pi/4,5*math.pi/4),(2*math.pi,math.pi),0,ppt.volumemoins)]
     while True:
         ret, frame = video.read()
         masque = back.apply(frame,None,0)
@@ -103,7 +103,16 @@ def ChoisirCouleur():
     couleur=tkinter.colorchooser.askcolor(color=None,title ="Choisir une Couleur")
     textecouleur.set(couleur[1])
 
-
+def CouleurOK(couleurhex):
+    couleurhex=couleurhex[1::]
+    i=True
+    if len(couleurhex)==3 or len(couleurhex)==6:
+        for y in couleurhex:
+            if y not in ["1","2","3","4","5","6","7","8","9","0","A","B","C","D","E","F"]:
+                i=False
+    else:
+        i=False
+    return "#"+couleurhex if i else "#FFF"
 
 
 
@@ -134,7 +143,7 @@ l3=tkinter.Label(Fenetre_tkinter,text="% pour mouvement :")
 bouton = tkinter.Button(Fenetre_tkinter,text="Lancer la camera",command=lambda:capture(slider2.get(),slider1.get(), slider3.get(),modedefonctionement),width  =50)
 boutonsouris=tkinter.Button(Fenetre_tkinter,text="Choisir une couleur",command=ChoisirCouleur)
 labelsouris=tkinter.Entry(Fenetre_tkinter,textvariable=textecouleur)
-textecouleur.trace_add("write",lambda *args: labelsouris.config(bg=textecouleur.get()))
+textecouleur.trace_add("write",lambda *args: labelsouris.config(bg=CouleurOK(textecouleur.get())))
 bouton.grid(row=5,column=0,columnspan=3)
 label.grid(row=0,column=0,columnspan=3)
 radio1.grid(row=4,column=0)
@@ -142,9 +151,3 @@ radio2.grid(row=4,column=1)
 radio3.grid(row=4,column=2)
 PowerPointTk()
 Fenetre_tkinter.mainloop()
-
-
-
-
-
-
