@@ -31,16 +31,17 @@ def test () :
     video = cv2.VideoCapture(0)
 
     # Couleurs à détecter (bleu).
-    d = array([int(c[0]*0.7), int(c[1]*0.7), int(c[2]*0.7)])
-    f = array([int(c[0]*1.3), int(c[1]*1.3), int(c[2]*1.3)])
+    d = array([int(c[0]*0.9), int(c[1]*0.9), int(c[2]*0.9)])
+    f = array([int(c[0]*1.1), int(c[1]*1.1), int(c[2]*1.1)])
     print(d, f)
 
     while True :
         ret, frame = video.read()
 
 
-        i = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        mask = cv2.inRange(i, d, f)
+        i = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV) #fenêtre de couleur daltoniennes
+        #mask = cv2.inRange(i, d, f) # detection de couleur avec l'image aux couleurs chelous
+        mask = cv2.inRange(frame, d, f)
         j = cv2.bitwise_and(frame, frame, mask=mask)
 
         x, y, largeur, longueur = cv2.boundingRect(mask)
