@@ -9,76 +9,112 @@ from tkinter import colorchooser
 
 
 def capture(Sensibilité,Pixelisation, sensibilite_vecteur,mode):
-    i = False
-    time.sleep(5)
-    back = cv2.createBackgroundSubtractorMOG2()
+    if mode==1 or mode==0:
+        i = False
+        time.sleep(5)
+        back = cv2.createBackgroundSubtractorMOG2()
+        video = cv2.VideoCapture(0)
+        taille = (int(video.get(cv2.CAP_PROP_FRAME_WIDTH)), int(video.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+        print(str(taille[0]) + "x" + str(taille[1]))
+        element = ones((Pixelisation, Pixelisation), uint8)
+        back.setVarThreshold(Sensibilité)
+        #variable pour vecteur
+        temps_depuis_derniere_coord=0
+        l_coord=[]
+        if modedefonctionement==0:
+            mouvement=[vecteur.Deplacement((math.pi/4,7*math.pi/4),(math.pi/2,3*math.pi/2),1,ppt.droite),vecteur.Deplacement((5*math.pi/4,3*math.pi/4),(3*math.pi/2,math.pi/2),0,ppt.gauche)]
+        else:
+            mouvement=[vecteur.Deplacement((math.pi/4,7*math.pi/4),(math.pi/2,3*math.pi/2),1,ppt.suivant),vecteur.Deplacement((5*math.pi/4,3*math.pi/4),(3*math.pi/2,math.pi/2),0,ppt.precedent),vecteur.Deplacement((3*math.pi/4,math.pi/4),(math.pi,0),0,ppt.volumeplus),vecteur.Deplacement((7*math.pi/4,5*math.pi/4),(2*math.pi,math.pi),0,ppt.volumemoins)]
+        while True:
+            ret, frame = video.read()
+            masque = back.apply(frame,None,0)
+            masque = cv2.erode(masque, element, iterations=1)
+            x, y, largeur, longueur = cv2.boundingRect(masque)
+            cv2.rectangle(frame,(x,y),(x+largeur,y+longueur),(0,255,0),2)
+            gauche = (x, argmax(masque[:, x]))
+            droite = (x + largeur - 1, argmax(masque[:, x + largeur - 1]))
+            haut = (argmax(masque[y, :]), y)
+            bas = (argmax(masque[y + longueur - 1, :]), y + longueur - 1)
+            cv2.circle(frame, gauche, 8, (255, 50, 0), -1)
+            cv2.circle(frame, droite, 8, (255, 50, 0), -1)
+            cv2.circle(frame, haut, 8, (255, 50, 0), -1)
+            cv2.circle(frame, bas, 8, (255, 50, 0), -1)
+
+            if i is True :
+                cv2.line(frame, l_coord[0], l_coord[1], (255, 0, 0), 2)
+                cv2.line(frame, l_coord[1], l_coord[2], (255, 0, 0), 2)
+                cv2.line(frame, l_coord[2], l_coord[3], (255, 0, 0), 2)
+
+            cv2.imshow("Cam2",frame)
+            cv2.imshow("Background", back.getBackgroundImage())
+            cv2.imshow("Cam", masque)
+            #Calcul des vecteurs
+            if time.time()-temps_depuis_derniere_coord>0.25:
+                if len(l_coord)==4:
+                    l_coord.pop(0)
+                    l_coord.append(gauche)
+                    v03 = vecteur.Vecteur(l_coord[0], l_coord[3])
+                    v01 = vecteur.Vecteur(l_coord[0], l_coord[1])
+                    v12 = vecteur.Vecteur(l_coord[1], l_coord[2])
+                    v23 = vecteur.Vecteur(l_coord[2], l_coord[3])
+                    print(v03.module,v03.argument)
+                    i = False
+                    if v03.module > math.sqrt(taille[0]**2 + taille[1]**2) * sensibilite_vecteur / 100 :
+                            if v01.module > v03.module*0.1 and v12.module > v03.module*0.1 and v23.module > v03.module*0.1 :
+                                for mv in mouvement:
+                                    if {1:v03.argument<mv.a1[0] or v03.argument>mv.a1[1], 0:v03.argument<mv.a1[0] and v03.argument>mv.a1[1]}[mv.andor]:
+                                        if {1:(v01.argument < mv.a2[0] or v01.argument > mv.a2[1]) and (v12.argument < mv.a2[0] or v12.argument > mv.a2[1]) and (v23.argument < mv.a2[0] or v23.argument > mv.a2[1]), 0:(v01.argument < mv.a2[0] and v01.argument > mv.a2[1]) and (v12.argument < mv.a2[0] and v12.argument > mv.a2[1]) and (v23.argument < mv.a2[0] and v23.argument > mv.a2[1])}[mv.andor]:
+                                            i=True
+                                            mv.f()
+                    temps_depuis_derniere_coord=time.time()
+
+
+                else:
+                    l_coord.append(gauche)
+                    temps_depuis_derniere_coord=time.time()
+
+            if cv2.waitKey(1) & 0xFF == ord('q') :
+                break
+        video.release()
+        cv2.destroyAllWindows()
+    else:
+        video = cv2.VideoCapture(0)
+        while 1:
+            a,image=video.read()
+            hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+            haut = array([100,50,50])
+            bas = array([150,150,255])
+            mask = cv2.inRange(hsv, haut, bas)
+            output = cv2.bitwise_and(image,image, mask= mask)
+
+            cv2.imshow("Color Detected", output)
+
+            if cv2.waitKey(1) & 0xFF == ord('q') :
+                break
+        video.release()
+        cv2.destroyAllWindows()
+def ChoisirCouleurEcran () :
     video = cv2.VideoCapture(0)
     taille = (int(video.get(cv2.CAP_PROP_FRAME_WIDTH)), int(video.get(cv2.CAP_PROP_FRAME_HEIGHT)))
-    print(str(taille[0]) + "x" + str(taille[1]))
-    element = ones((Pixelisation, Pixelisation), uint8)
-    back.setVarThreshold(Sensibilité)
-    #variable pour vecteur
-    temps_depuis_derniere_coord=0
-    l_coord=[]
-    if modedefonctionement==0:
-        mouvement=[vecteur.Deplacement((math.pi/4,7*math.pi/4),(math.pi/2,3*math.pi/2),1,ppt.droite),vecteur.Deplacement((5*math.pi/4,3*math.pi/4),(3*math.pi/2,math.pi/2),0,ppt.gauche)]
-    else:
-        mouvement=[vecteur.Deplacement((math.pi/4,7*math.pi/4),(math.pi/2,3*math.pi/2),1,ppt.suivant),vecteur.Deplacement((5*math.pi/4,3*math.pi/4),(3*math.pi/2,math.pi/2),0,ppt.precedent),vecteur.Deplacement((3*math.pi/4,math.pi/4),(math.pi,0),0,ppt.volumeplus),vecteur.Deplacement((7*math.pi/4,5*math.pi/4),(2*math.pi,math.pi),0,ppt.volumemoins)]
-    while True:
+    tm = time.time()
+
+    while time.time()-tm <= 5:
         ret, frame = video.read()
-        masque = back.apply(frame,None,0)
-        masque = cv2.erode(masque, element, iterations=1)
-        x, y, largeur, longueur = cv2.boundingRect(masque)
-        cv2.rectangle(frame,(x,y),(x+largeur,y+longueur),(0,255,0),2)
-        gauche = (x, argmax(masque[:, x]))
-        droite = (x + largeur - 1, argmax(masque[:, x + largeur - 1]))
-        haut = (argmax(masque[y, :]), y)
-        bas = (argmax(masque[y + longueur - 1, :]), y + longueur - 1)
-        cv2.circle(frame, gauche, 8, (255, 50, 0), -1)
-        cv2.circle(frame, droite, 8, (255, 50, 0), -1)
-        cv2.circle(frame, haut, 8, (255, 50, 0), -1)
-        cv2.circle(frame, bas, 8, (255, 50, 0), -1)
+        print(len(frame))
+        #frame = cv2.erode(frame, ones((10, 10), uint8), iterations=2)
 
-        if i is True :
-            cv2.line(frame, l_coord[0], l_coord[1], (255, 0, 0), 2)
-            cv2.line(frame, l_coord[1], l_coord[2], (255, 0, 0), 2)
-            cv2.line(frame, l_coord[2], l_coord[3], (255, 0, 0), 2)
-
-        cv2.imshow("Cam2",frame)
-        cv2.imshow("Background", back.getBackgroundImage())
-        cv2.imshow("Cam", masque)
-        #Calcul des vecteurs
-        if time.time()-temps_depuis_derniere_coord>0.25:
-            if len(l_coord)==4:
-                l_coord.pop(0)
-                l_coord.append(gauche)
-                v03 = vecteur.Vecteur(l_coord[0], l_coord[3])
-                v01 = vecteur.Vecteur(l_coord[0], l_coord[1])
-                v12 = vecteur.Vecteur(l_coord[1], l_coord[2])
-                v23 = vecteur.Vecteur(l_coord[2], l_coord[3])
-                print(v03.module,v03.argument)
-                i = False
-                if v03.module > math.sqrt(taille[0]**2 + taille[1]**2) * sensibilite_vecteur / 100 :
-                        if v01.module > v03.module*0.1 and v12.module > v03.module*0.1 and v23.module > v03.module*0.1 :
-                            for mv in mouvement:
-                                if {1:v03.argument<mv.a1[0] or v03.argument>mv.a1[1], 0:v03.argument<mv.a1[0] and v03.argument>mv.a1[1]}[mv.andor]:
-                                    if {1:(v01.argument < mv.a2[0] or v01.argument > mv.a2[1]) and (v12.argument < mv.a2[0] or v12.argument > mv.a2[1]) and (v23.argument < mv.a2[0] or v23.argument > mv.a2[1]), 0:(v01.argument < mv.a2[0] and v01.argument > mv.a2[1]) and (v12.argument < mv.a2[0] and v12.argument > mv.a2[1]) and (v23.argument < mv.a2[0] and v23.argument > mv.a2[1])}[mv.andor]:
-                                        i=True
-                                        mv.f()
-                temps_depuis_derniere_coord=time.time()
-
-
-            else:
-                l_coord.append(gauche)
-                temps_depuis_derniere_coord=time.time()
-
+        coord=(taille[0]//2, taille[1]//2)
+        print(len(frame),len(frame[0]),coord)
+        cv2.circle(frame, coord, 3, (255, 0, 0), -1)
+        cv2.imshow("Couleur", frame)
         if cv2.waitKey(1) & 0xFF == ord('q') :
             break
     video.release()
     cv2.destroyAllWindows()
-
-
-
+    c=frame[coord[0]][coord[1]]
+    c[0],c[2]=c[2],c[0]
+    print(c)
+    textecouleur.set(RgbVersHex(c))
 #Fonction pour Tkinter. Les objet sont définis plus bas
 def SourisTk():
     slider1.grid_remove()
@@ -89,7 +125,9 @@ def SourisTk():
     l3.grid_remove()
     boutonsouris.grid(row=1,column=0,sticky="n")
     labelsouris.grid(row=1,column=1)
+    boutoncouleurecran.grid(row=4,column=1)
 def PowerPointTk():
+    boutoncouleurecran.grid_remove()
     labelsouris.grid_remove()
     boutonsouris.grid_remove()
     l1.grid(row=1,column=0,sticky='se')
@@ -105,6 +143,7 @@ def ChoisirCouleur():
 
 def CouleurOK(couleurhex):
     couleurhex=couleurhex[1::]
+    couleurhex=couleurhex.upper()
     i=True
     if len(couleurhex)==3 or len(couleurhex)==6:
         for y in couleurhex:
@@ -114,7 +153,11 @@ def CouleurOK(couleurhex):
         i=False
     return "#"+couleurhex if i else "#FFF"
 
-
+def RgbVersHex(rgb):
+    hexa='#'
+    for i in rgb:
+        hexa+=hex(i)[2::]
+    return hexa.upper()
 
 #Tkinter
 Fenetre_tkinter=tkinter.Tk()
@@ -144,10 +187,12 @@ bouton = tkinter.Button(Fenetre_tkinter,text="Lancer la camera",command=lambda:c
 boutonsouris=tkinter.Button(Fenetre_tkinter,text="Choisir une couleur",command=ChoisirCouleur)
 labelsouris=tkinter.Entry(Fenetre_tkinter,textvariable=textecouleur)
 textecouleur.trace_add("write",lambda *args: labelsouris.config(bg=CouleurOK(textecouleur.get())))
-bouton.grid(row=5,column=0,columnspan=3)
+bouton.grid(row=6,column=0,columnspan=3)
+boutoncouleurecran= tkinter.Button(Fenetre_tkinter,text="Choisir la couleur depuis la caméra",command=ChoisirCouleurEcran)
 label.grid(row=0,column=0,columnspan=3)
-radio1.grid(row=4,column=0)
-radio2.grid(row=4,column=1)
-radio3.grid(row=4,column=2)
+radio1.grid(row=5,column=0)
+radio2.grid(row=5,column=1)
+radio3.grid(row=5,column=2)
+
 PowerPointTk()
 Fenetre_tkinter.mainloop()
