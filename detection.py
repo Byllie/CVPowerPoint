@@ -9,6 +9,9 @@ from tkinter import colorchooser
 
 
 def capture(Sensibilité,Pixelisation, sensibilite_vecteur,mode):
+        """
+        Fonction gérant tout la détection de mouvement, l'affichage des fenêtre vidéos et des visuels ajoutés (rectangles, points, etc...) et déclanchant les différentes actions.
+        """
         print(modedefonctionement.get())
         i = False
         time.sleep(5)
@@ -77,6 +80,9 @@ def capture(Sensibilité,Pixelisation, sensibilite_vecteur,mode):
         cv2.destroyAllWindows()
 
 def ChoisirCouleurEcran () :
+    """
+    Fonction permettant de capturer la couleur placé au centre de l'image (sur la croix) et qui renvoie le code hexadécimal correspondant.
+    """
     video = cv2.VideoCapture(0)
     taille = (int(video.get(cv2.CAP_PROP_FRAME_WIDTH)), int(video.get(cv2.CAP_PROP_FRAME_HEIGHT)))
     tm = time.time()
@@ -95,6 +101,9 @@ def ChoisirCouleurEcran () :
     c[0],c[2]=c[2],c[0]
     textecouleur.set(RgbVersHex(c))
 def suiviMain(couleur):
+    """
+    Fonction gérant le suivi de la couleur précédemment sélectionnée, et les actions en découlant.
+    """
 
     couleur=couleur[0][0]
     video = cv2.VideoCapture(0)
@@ -121,6 +130,9 @@ def suiviMain(couleur):
     cv2.destroyAllWindows()
 #Fonction pour Tkinter. Les objet sont définis plus bas
 def SourisTk():
+    """
+    Fonction permettant à l'interface Tkinter de selectionner le mode "Souris" et ainsi de pouvoir bouger le curseur en fonction d'une certaine couleur.
+    """
     slider1.grid_remove()
     slider2.grid_remove()
     slider3.grid_remove()
@@ -131,6 +143,9 @@ def SourisTk():
     labelsouris.grid(row=1,column=1)
     boutoncouleurecran.grid(row=4,column=1)
 def PowerPointTk():
+    """
+    Fonction permettant à l'interface Tkinter de selectionner le mode "PowerPoint" et ainsi de pouvoir changer de slide tout en bougeant le bras droit.
+    """
     boutoncouleurecran.grid_remove()
     labelsouris.grid_remove()
     boutonsouris.grid_remove()
@@ -142,10 +157,16 @@ def PowerPointTk():
     slider3.grid(row = 3, column = 1,columnspan=2)
 
 def ChoisirCouleur():
+    """
+    Fonction qui ouvre la fenêtre de sélection de couleur et la renvoie dans Tkinter.
+    """
     couleur=tkinter.colorchooser.askcolor(color=None,title ="Choisir une Couleur")
     textecouleur.set(couleur[1])
 
 def CouleurOK(couleurhex):
+    """
+    Fonction qui vérifie que le code hexadécimal rentré dans le champs de la fenêtre tkinter est bien valide, et si oui qui affiche (en arrière plan de ce champs) la couleur définie.
+    """
     couleurhex=couleurhex[1::]
     couleurhex=couleurhex.upper()
     i=True
@@ -158,6 +179,9 @@ def CouleurOK(couleurhex):
     return "#"+couleurhex if i else "#FFF"
 
 def RgbVersHex(rgb):
+    """
+    Fonction qui prend en paramètre un tuple des trois codes RGB d'une couleur, et qui renvoie le code hexadécimal correpondant.
+    """
     hexa='#'
     for i in rgb:
         hexa=hexa+hex(i)[2::] if i>15 else hexa+"0"+hex(i)[2::]
