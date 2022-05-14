@@ -80,12 +80,12 @@ def ChoisirCouleurEcran () :
     video = cv2.VideoCapture(0)
     taille = (int(video.get(cv2.CAP_PROP_FRAME_WIDTH)), int(video.get(cv2.CAP_PROP_FRAME_HEIGHT)))
     tm = time.time()
-
     while time.time()-tm <= 5:
         ret, frame = video.read()
-        frame = cv2.erode(frame, ones((10, 10), uint8), iterations=2)
-        coord=(taille[0]//2, taille[1]//2)
-        cv2.circle(frame, coord, 3, (255, 0, 0), -1)
+        frame = cv2.erode(frame, ones((20, 20), uint8), iterations=1)
+        coord=(taille[1]//2, taille[0]//2)
+        print(taille,coord)
+        cv2.circle(frame, (320,240), 8, tuple([int(i) for i in frame[coord[0]][coord[1]] ]), -1)
         cv2.imshow("Couleur", frame)
         if cv2.waitKey(1) & 0xFF == ord('q') :
             break
@@ -95,16 +95,25 @@ def ChoisirCouleurEcran () :
     c[0],c[2]=c[2],c[0]
     textecouleur.set(RgbVersHex(c))
 def suiviMain(couleur):
+
     couleur=couleur[0][0]
     video = cv2.VideoCapture(0)
     haut = array([int(couleur[0] * 1.2), int(couleur[1] * 1.5), 255])
     bas = array([int(couleur[0] * 0.8), int(couleur[1] * 0.5), 50])
+    taille = (int(video.get(cv2.CAP_PROP_FRAME_WIDTH)), int(video.get(cv2.CAP_PROP_FRAME_HEIGHT)))
     while 1:
         a, image = video.read()
         hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
         masque = cv2.inRange(hsv, bas, haut)
+        masque = cv2.erode(masque, ones((50, 50), uint8), iterations=1)
         sortie = cv2.bitwise_and(image, image, mask=masque)
+
+
+        x, y, largeur, longueur = cv2.boundingRect(masque)
+        cv2.rectangle(sortie, (x, y), (x + largeur, y + longueur), (0, 255, 0), 2)
+        cv2.circle(sortie,(x+largeur//2,y+longueur//2),6,(255,0,0),-1)
         cv2.imshow("Detection de couleur", sortie)
+        ppt.souris(x+largeur//2,y+longueur//2,taille)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
