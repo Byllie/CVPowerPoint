@@ -1,6 +1,7 @@
 import pyautogui
 import time
 temps=0
+pyautogui.FAILSAFE=False
 
 def droite():
     global temps
@@ -50,3 +51,12 @@ def precedent():
         temps=time.time()
     else:
         pass
+
+def souris(x,y,taille):
+    tailleecran=pyautogui.size()
+    print(x,y,taille,tailleecran)
+    x=x/taille[0]*tailleecran[0]
+    y=x/taille[1]*tailleecran[1]
+    print(x,y)
+    pyautogui.moveTo(y,x)
+    return None
