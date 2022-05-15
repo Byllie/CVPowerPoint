@@ -72,9 +72,8 @@ def souris(x,y,taille):
     Fonction qui place le curceur de la souris à la pisition (x, y) donnée en paramètre (utilisé dans le mode "souris").
     """
     tailleecran=pyautogui.size()
-    print(x,y,taille,tailleecran)
-    x=x/taille[0]*tailleecran[0]
-    y=x/taille[1]*tailleecran[1]
-    print(x,y)
-    pyautogui.moveTo(y,x)
+    x= (x/taille[0])*tailleecran[0]#on adapte les cordonné de la camera, en coordonné de l'écran. 50px sur 100px de la camera =1/2 donc 1040 px sur un écran de 2080px
+    y=(y/taille[1])*tailleecran[1]
+    pyautogui.moveTo(x,y)
     return None
+
