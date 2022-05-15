@@ -69,11 +69,12 @@ def precedent():
 
 def souris(x,y,taille):
     """
-    Fonction qui place le curceur de la souris à la pisition (x, y) donnée en paramètre (utilisé dans le mode "souris").
+    Fonction qui place le curseur de la souris à la pisition (x, y) donnée en paramètre (utilisé dans le mode "souris").
     """
     tailleecran=pyautogui.size()
-    x= (x/taille[0])*tailleecran[0]#on adapte les cordonné de la camera, en coordonné de l'écran. 50px sur 100px de la camera =1/2 donc 1040 px sur un écran de 2080px
+    x= (x/taille[0])*tailleecran[0]#on adapte les cordonnées de la camera, en coordonnée de l'écran. 50px sur 100px de la camera =1/2 donc 1040 px sur un écran de 2080px
     y=(y/taille[1])*tailleecran[1]
     pyautogui.moveTo(x,y)
     return None
+
 
