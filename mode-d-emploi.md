@@ -6,8 +6,6 @@ _Joseph Jaujay / Gwendal Vantourout_
 
 - [CV2 (Open CV python)](https://pypi.org/project/opencv-python/).
 - [Pyautogui](https://github.com/asweigart/pyautogui).
-- [Tkinter](https://docs.python.org/fr/3/library/tkinter.html).
-- Autres librairies diverses telles que _numpy_, _math_ et _time_.
 
 ### Utilisation :
 
