@@ -12,7 +12,7 @@ class Vecteur:
         self.affixe=self.b-self.a #on calcule l'affixe du veteur
         self.module=math.sqrt(self.affixe.real**2+self.affixe.imag**2)#formule du module
         self.argument=math.acos(self.affixe.real/self.module) if (math.acos(self.affixe.real/self.module) * math.asin(self.affixe.imag/self.module)>=0) else math.acos(self.affixe.real/-self.module)+math.pi #Formule compliqué pour calculer l'argument car arcos est seulement définit sur [0,pi]
-        #vraiment impresionnant je suis vraiment le roi du sinus (Gwendal) / Pffff, il fait vraiment le fou celui là... (Joseph)/Ok mais c'est incroyable (1er en NSI,les 3 trimestres ;))
+        #vraiment impresionnant je suis vraiment le roi du sinus (Gwendal) / Pffff, il fait vraiment le fou celui là... (Joseph) / Ok mais c'est incroyable (1er en NSI,les 3 trimestres ;)) / Ouais mais pas capable de faire un DS de math sans calculatrice :/ ...
 
 class Deplacement:
     """
