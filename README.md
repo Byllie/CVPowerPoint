@@ -39,3 +39,8 @@ Action sur un clavier virtuel avec la librairie python [Pyautogui](https://githu
 | 2022-04-01 | Création d'une branch dédiée aux tests de détection de couleur | Création d'un fichier de test de détection de couleur. Ajout de boutons "radios" dans l'interface Tkinter | |
 | 2022-04-08 | | Amélioration de l'interface tkinter. Amélioration de la détection de couleur avec une sélection de couleur | |
 | 2022-04-12 | | Ajout des commandes pour le mode musique | |
+| ?????????? | | AJout de selection couleur via une fenêtre native | |
+| ?????????? | | AJout de selection couleur via case à remplir en hex | |
+| 2022-05-13 | | Ajout du mode souris + finition détection de coueleur (passage en hsv) | |
+| 2022-05-14| | Regler bug du mode souris + docstrings| |
+| 2022-05-15| | Ajout de commentaire explicatif | début diaporama + fiche d'utilisation du projet  | 
