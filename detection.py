@@ -28,7 +28,7 @@ def capture(Sensibilité,Pixelisation, sensibilite_vecteur,mode):
             mouvement=[vecteur.Deplacement((math.pi/4,7*math.pi/4),(math.pi/2,3*math.pi/2),1,ppt.droite),vecteur.Deplacement((5*math.pi/4,3*math.pi/4),(3*math.pi/2,math.pi/2),0,ppt.gauche)]
         else:
             #mouvement pour la musique
-            mouvement=[vecteur.Deplacement((math.pi/4,7*math.pi/4),(math.pi/2,3*math.pi/2),1,ppt.suivant),vecteur.Deplacement((5*math.pi/4,3*math.pi/4),(3*math.pi/2,math.pi/2),0,ppt.precedent),vecteur.Deplacement((3*math.pi/4,math.pi/4),(math.pi,0),0,ppt.volumeplus),vecteur.Deplacement((7*math.pi/4,5*math.pi/4),(2*math.pi,math.pi),0,ppt.volumemoins)]
+            mouvement=[vecteur.Deplacement((math.pi/4,7*math.pi/4),(math.pi/2,3*math.pi/2),1,ppt.droite),vecteur.Deplacement((5*math.pi/4,3*math.pi/4),(3*math.pi/2,math.pi/2),0,ppt.gauche),vecteur.Deplacement((3*math.pi/4,math.pi/4),(math.pi,0),0,ppt.volumemoins),vecteur.Deplacement((7*math.pi/4,5*math.pi/4),(2*math.pi,math.pi),0,ppt.volumeplus)]
         while True:
             ret, frame = video.read()# on récupère l'image de la caméra: frame est une liste de liste de tuple (b,g,r (c'est du rgb mais pas dans le même sens parce que open cv voulait se sentir diffèrent) d'entiers codés sur 8 bit(255)
             masque = back.apply(frame,None,0)#on applique l'algorythme de substraction de l'arrière plan, cela renvoit un masque (0 ou 1) pour chaque pixel, un 1 montre un pixel qui a changé signicativement par rapport au fond
